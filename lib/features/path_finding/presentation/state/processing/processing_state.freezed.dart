@@ -56,13 +56,16 @@ extension ProcessingStatePatterns on ProcessingState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _LoadingTasks value)?  loadingTasks,TResult Function( _Calculating value)?  calculating,TResult Function( _Ready value)?  ready,TResult Function( _Submitting value)?  submitting,TResult Function( _Success value)?  success,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Failure() when failure != null:
+return initial(_that);case _LoadingTasks() when loadingTasks != null:
+return loadingTasks(_that);case _Calculating() when calculating != null:
+return calculating(_that);case _Ready() when ready != null:
+return ready(_that);case _Submitting() when submitting != null:
+return submitting(_that);case _Success() when success != null:
+return success(_that);case _Failure() when failure != null:
 return failure(_that);case _:
   return orElse();
 
@@ -81,13 +84,16 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Failure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _LoadingTasks value)  loadingTasks,required TResult Function( _Calculating value)  calculating,required TResult Function( _Ready value)  ready,required TResult Function( _Submitting value)  submitting,required TResult Function( _Success value)  success,required TResult Function( _Failure value)  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case _Loading():
-return loading(_that);case _Loaded():
-return loaded(_that);case _Failure():
+return initial(_that);case _LoadingTasks():
+return loadingTasks(_that);case _Calculating():
+return calculating(_that);case _Ready():
+return ready(_that);case _Submitting():
+return submitting(_that);case _Success():
+return success(_that);case _Failure():
 return failure(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -105,13 +111,16 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Failure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _LoadingTasks value)?  loadingTasks,TResult? Function( _Calculating value)?  calculating,TResult? Function( _Ready value)?  ready,TResult? Function( _Submitting value)?  submitting,TResult? Function( _Success value)?  success,TResult? Function( _Failure value)?  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Failure() when failure != null:
+return initial(_that);case _LoadingTasks() when loadingTasks != null:
+return loadingTasks(_that);case _Calculating() when calculating != null:
+return calculating(_that);case _Ready() when ready != null:
+return ready(_that);case _Submitting() when submitting != null:
+return submitting(_that);case _Success() when success != null:
+return success(_that);case _Failure() when failure != null:
 return failure(_that);case _:
   return null;
 
@@ -129,12 +138,15 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<PathTask> tasks)?  loaded,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loadingTasks,TResult Function( int completed,  int total)?  calculating,TResult Function( List<PathResult> results,  String? submissionError)?  ready,TResult Function( List<PathResult> results)?  submitting,TResult Function( List<PathResult> results)?  success,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.tasks);case _Failure() when failure != null:
+return initial();case _LoadingTasks() when loadingTasks != null:
+return loadingTasks();case _Calculating() when calculating != null:
+return calculating(_that.completed,_that.total);case _Ready() when ready != null:
+return ready(_that.results,_that.submissionError);case _Submitting() when submitting != null:
+return submitting(_that.results);case _Success() when success != null:
+return success(_that.results);case _Failure() when failure != null:
 return failure(_that.message);case _:
   return orElse();
 
@@ -153,12 +165,15 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<PathTask> tasks)  loaded,required TResult Function( String message)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loadingTasks,required TResult Function( int completed,  int total)  calculating,required TResult Function( List<PathResult> results,  String? submissionError)  ready,required TResult Function( List<PathResult> results)  submitting,required TResult Function( List<PathResult> results)  success,required TResult Function( String message)  failure,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case _Loading():
-return loading();case _Loaded():
-return loaded(_that.tasks);case _Failure():
+return initial();case _LoadingTasks():
+return loadingTasks();case _Calculating():
+return calculating(_that.completed,_that.total);case _Ready():
+return ready(_that.results,_that.submissionError);case _Submitting():
+return submitting(_that.results);case _Success():
+return success(_that.results);case _Failure():
 return failure(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -176,12 +191,15 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<PathTask> tasks)?  loaded,TResult? Function( String message)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loadingTasks,TResult? Function( int completed,  int total)?  calculating,TResult? Function( List<PathResult> results,  String? submissionError)?  ready,TResult? Function( List<PathResult> results)?  submitting,TResult? Function( List<PathResult> results)?  success,TResult? Function( String message)?  failure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.tasks);case _Failure() when failure != null:
+return initial();case _LoadingTasks() when loadingTasks != null:
+return loadingTasks();case _Calculating() when calculating != null:
+return calculating(_that.completed,_that.total);case _Ready() when ready != null:
+return ready(_that.results,_that.submissionError);case _Submitting() when submitting != null:
+return submitting(_that.results);case _Success() when success != null:
+return success(_that.results);case _Failure() when failure != null:
 return failure(_that.message);case _:
   return null;
 
@@ -225,8 +243,8 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements ProcessingState {
-  const _Loading();
+class _LoadingTasks implements ProcessingState {
+  const _LoadingTasks();
   
 
 
@@ -236,7 +254,7 @@ class _Loading implements ProcessingState {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadingTasks);
 }
 
 
@@ -245,7 +263,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-    return 'ProcessingState.loading()';
+    return 'ProcessingState.loadingTasks()';
 }
 
 
@@ -257,51 +275,46 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements ProcessingState {
-  const _Loaded({required  List<PathTask> tasks}): _tasks = tasks;
+class _Calculating implements ProcessingState {
+  const _Calculating({required this.completed, required this.total});
   
 
- final  List<PathTask> _tasks;
- List<PathTask> get tasks {
-  if (_tasks is EqualUnmodifiableListView) return _tasks;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_tasks);
-}
-
+ final  int completed;
+ final  int total;
 
 /// Create a copy of ProcessingState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+_$CalculatingCopyWith<_Calculating> get copyWith => __$CalculatingCopyWithImpl<_Calculating>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other.tasks, _tasks));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Calculating&&(identical(other.completed, completed) || other.completed == completed)&&(identical(other.total, total) || other.total == total));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tasks));
+    return Object.hash(runtimeType,completed,total);
 }
 
 @override
 String toString() {
-    return 'ProcessingState.loaded(tasks: $tasks)';
+    return 'ProcessingState.calculating(completed: $completed, total: $total)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $ProcessingStateCopyWith<$Res> {
-  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
+abstract mixin class _$CalculatingCopyWith<$Res> implements $ProcessingStateCopyWith<$Res> {
+  factory _$CalculatingCopyWith(_Calculating value, $Res Function(_Calculating) _then) = __$CalculatingCopyWithImpl;
 @useResult
 $Res call({
- List<PathTask> tasks
+ int completed, int total
 });
 
 
@@ -309,19 +322,244 @@ $Res call({
 
 }
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res>
-    implements _$LoadedCopyWith<$Res> {
-  __$LoadedCopyWithImpl(this._self, this._then);
+class __$CalculatingCopyWithImpl<$Res>
+    implements _$CalculatingCopyWith<$Res> {
+  __$CalculatingCopyWithImpl(this._self, this._then);
 
-  final _Loaded _self;
-  final $Res Function(_Loaded) _then;
+  final _Calculating _self;
+  final $Res Function(_Calculating) _then;
 
 /// Create a copy of ProcessingState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? tasks = null,}) {
-  return _then(_Loaded(
-tasks: null == tasks ? _self._tasks : tasks // ignore: cast_nullable_to_non_nullable
-as List<PathTask>,
+@pragma('vm:prefer-inline') $Res call({Object? completed = null,Object? total = null,}) {
+  return _then(_Calculating(
+completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _Ready implements ProcessingState {
+  const _Ready({required  List<PathResult> results, this.submissionError}): _results = results;
+  
+
+ final  List<PathResult> _results;
+ List<PathResult> get results {
+  if (_results is EqualUnmodifiableListView) return _results;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_results);
+}
+
+ final  String? submissionError;
+
+/// Create a copy of ProcessingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ReadyCopyWith<_Ready> get copyWith => __$ReadyCopyWithImpl<_Ready>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ready&&const DeepCollectionEquality().equals(other.results, _results)&&(identical(other.submissionError, submissionError) || other.submissionError == submissionError));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_results),submissionError);
+}
+
+@override
+String toString() {
+    return 'ProcessingState.ready(results: $results, submissionError: $submissionError)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ReadyCopyWith<$Res> implements $ProcessingStateCopyWith<$Res> {
+  factory _$ReadyCopyWith(_Ready value, $Res Function(_Ready) _then) = __$ReadyCopyWithImpl;
+@useResult
+$Res call({
+ List<PathResult> results, String? submissionError
+});
+
+
+
+
+}
+/// @nodoc
+class __$ReadyCopyWithImpl<$Res>
+    implements _$ReadyCopyWith<$Res> {
+  __$ReadyCopyWithImpl(this._self, this._then);
+
+  final _Ready _self;
+  final $Res Function(_Ready) _then;
+
+/// Create a copy of ProcessingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? results = null,Object? submissionError = freezed,}) {
+  return _then(_Ready(
+results: null == results ? _self._results : results // ignore: cast_nullable_to_non_nullable
+as List<PathResult>,submissionError: freezed == submissionError ? _self.submissionError : submissionError // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _Submitting implements ProcessingState {
+  const _Submitting({required  List<PathResult> results}): _results = results;
+  
+
+ final  List<PathResult> _results;
+ List<PathResult> get results {
+  if (_results is EqualUnmodifiableListView) return _results;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_results);
+}
+
+
+/// Create a copy of ProcessingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SubmittingCopyWith<_Submitting> get copyWith => __$SubmittingCopyWithImpl<_Submitting>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Submitting&&const DeepCollectionEquality().equals(other.results, _results));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_results));
+}
+
+@override
+String toString() {
+    return 'ProcessingState.submitting(results: $results)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SubmittingCopyWith<$Res> implements $ProcessingStateCopyWith<$Res> {
+  factory _$SubmittingCopyWith(_Submitting value, $Res Function(_Submitting) _then) = __$SubmittingCopyWithImpl;
+@useResult
+$Res call({
+ List<PathResult> results
+});
+
+
+
+
+}
+/// @nodoc
+class __$SubmittingCopyWithImpl<$Res>
+    implements _$SubmittingCopyWith<$Res> {
+  __$SubmittingCopyWithImpl(this._self, this._then);
+
+  final _Submitting _self;
+  final $Res Function(_Submitting) _then;
+
+/// Create a copy of ProcessingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? results = null,}) {
+  return _then(_Submitting(
+results: null == results ? _self._results : results // ignore: cast_nullable_to_non_nullable
+as List<PathResult>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _Success implements ProcessingState {
+  const _Success({required  List<PathResult> results}): _results = results;
+  
+
+ final  List<PathResult> _results;
+ List<PathResult> get results {
+  if (_results is EqualUnmodifiableListView) return _results;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_results);
+}
+
+
+/// Create a copy of ProcessingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&const DeepCollectionEquality().equals(other.results, _results));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_results));
+}
+
+@override
+String toString() {
+    return 'ProcessingState.success(results: $results)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SuccessCopyWith<$Res> implements $ProcessingStateCopyWith<$Res> {
+  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+@useResult
+$Res call({
+ List<PathResult> results
+});
+
+
+
+
+}
+/// @nodoc
+class __$SuccessCopyWithImpl<$Res>
+    implements _$SuccessCopyWith<$Res> {
+  __$SuccessCopyWithImpl(this._self, this._then);
+
+  final _Success _self;
+  final $Res Function(_Success) _then;
+
+/// Create a copy of ProcessingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? results = null,}) {
+  return _then(_Success(
+results: null == results ? _self._results : results // ignore: cast_nullable_to_non_nullable
+as List<PathResult>,
   ));
 }
 

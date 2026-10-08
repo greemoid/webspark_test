@@ -12,6 +12,7 @@ part of 'grid_point.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$GridPoint {
 
@@ -22,6 +23,8 @@ mixin _$GridPoint {
 @pragma('vm:prefer-inline')
 $GridPointCopyWith<GridPoint> get copyWith => _$GridPointCopyWithImpl<GridPoint>(this as GridPoint, _$identity);
 
+  /// Serializes this GridPoint to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -30,7 +33,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is GridPoint&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as GridPoint;
@@ -210,11 +213,11 @@ return $default(_that.x,_that.y);case _:
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _GridPoint implements GridPoint {
   const _GridPoint({required this.x, required this.y});
-  
+  factory _GridPoint.fromJson(Map<String, dynamic> json) => _$GridPointFromJson(json);
 
 @override final  int x;
 @override final  int y;
@@ -225,14 +228,17 @@ class _GridPoint implements GridPoint {
 @pragma('vm:prefer-inline')
 _$GridPointCopyWith<_GridPoint> get copyWith => __$GridPointCopyWithImpl<_GridPoint>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$GridPointToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
     return identical(this, other) || (other.runtimeType == runtimeType&&other is _GridPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
     return Object.hash(runtimeType,x,y);

@@ -83,16 +83,19 @@ class _UrlInputViewState extends State<_UrlInputView> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: Icon(Icons.sync_alt, color: Colors.grey),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0.0),
+                        child: Transform.translate(
+                          offset: const Offset(0, -4),
+                          child: const Icon(Icons.compare_arrows, color: Colors.grey),
+                        ),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: TextField(
                           controller: _controller,
                           enabled: !isLoading,
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.send,
                           decoration: InputDecoration(
                             hintText: 'https://example.com/api',
                             errorText: errorMessage,
@@ -102,7 +105,13 @@ class _UrlInputViewState extends State<_UrlInputView> {
                           onChanged: (val) {
                             context.read<UrlInputCubit>().onUrlChanged(val);
                           },
-                          onSubmitted: (_) {
+                          onSubmitted: (val) {
+                            context.read<UrlInputCubit>().onUrlChanged(val);
+                            if (!isLoading) {
+                              context.read<UrlInputCubit>().submit();
+                            }
+                          },
+                          onEditingComplete: () {
                             if (!isLoading) {
                               context.read<UrlInputCubit>().submit();
                             }

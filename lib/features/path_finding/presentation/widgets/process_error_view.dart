@@ -25,7 +25,7 @@ class ProcessErrorView extends StatelessWidget {
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed: () {
-            context.read<ProcessingCubit>().loadTasks(apiUrl);
+            context.read<ProcessingCubit>().startProcessing(apiUrl);
           },
           child: const Text('Retry'),
         ),

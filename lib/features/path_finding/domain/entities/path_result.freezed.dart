@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PathResult {
 
- String get id; List<GridPoint> get steps; String get path;
+ String get id; List<GridPoint> get steps; String get path; List<String> get field;
 /// Create a copy of PathResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $PathResultCopyWith<PathResult> get copyWith => _$PathResultCopyWithImpl<PathRes
 @override
 bool operator ==(Object other) {
   final _this = this as PathResult;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PathResult&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.steps, _this.steps)&&(identical(other.path, _this.path) || other.path == _this.path));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PathResult&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.steps, _this.steps)&&(identical(other.path, _this.path) || other.path == _this.path)&&const DeepCollectionEquality().equals(other.field, _this.field));
 }
 
 
 @override
 int get hashCode {
   final _this = this as PathResult;
-  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.steps),_this.path);
+  return Object.hash(runtimeType,_this.id,const DeepCollectionEquality().hash(_this.steps),_this.path,const DeepCollectionEquality().hash(_this.field));
 }
 
 @override
 String toString() {
   final _this = this as PathResult;
-  return 'PathResult(id: ${_this.id}, steps: ${_this.steps}, path: ${_this.path})';
+  return 'PathResult(id: ${_this.id}, steps: ${_this.steps}, path: ${_this.path}, field: ${_this.field})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $PathResultCopyWith<$Res>  {
   factory $PathResultCopyWith(PathResult value, $Res Function(PathResult) _then) = _$PathResultCopyWithImpl;
 @useResult
 $Res call({
- String id, List<GridPoint> steps, String path
+ String id, List<GridPoint> steps, String path, List<String> field
 });
 
 
@@ -68,12 +68,13 @@ class _$PathResultCopyWithImpl<$Res>
 
 /// Create a copy of PathResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? steps = null,Object? path = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? steps = null,Object? path = null,Object? field = null,}) {
   return _then(PathResult(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,steps: null == steps ? _self.steps : steps // ignore: cast_nullable_to_non_nullable
 as List<GridPoint>,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
-as String,
+as String,field: null == field ? _self.field : field // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<GridPoint> steps,  String path)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<GridPoint> steps,  String path,  List<String> field)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PathResult() when $default != null:
-return $default(_that.id,_that.steps,_that.path);case _:
+return $default(_that.id,_that.steps,_that.path,_that.field);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.steps,_that.path);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<GridPoint> steps,  String path)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<GridPoint> steps,  String path,  List<String> field)  $default,) {final _that = this;
 switch (_that) {
 case _PathResult():
-return $default(_that.id,_that.steps,_that.path);case _:
+return $default(_that.id,_that.steps,_that.path,_that.field);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.steps,_that.path);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<GridPoint> steps,  String path)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<GridPoint> steps,  String path,  List<String> field)?  $default,) {final _that = this;
 switch (_that) {
 case _PathResult() when $default != null:
-return $default(_that.id,_that.steps,_that.path);case _:
+return $default(_that.id,_that.steps,_that.path,_that.field);case _:
   return null;
 
 }
@@ -214,7 +215,7 @@ return $default(_that.id,_that.steps,_that.path);case _:
 
 
 class _PathResult implements PathResult {
-  const _PathResult({required this.id, required  List<GridPoint> steps, required this.path}): _steps = steps;
+  const _PathResult({required this.id, required  List<GridPoint> steps, required this.path, required  List<String> field}): _steps = steps,_field = field;
   
 
 @override final  String id;
@@ -226,6 +227,13 @@ class _PathResult implements PathResult {
 }
 
 @override final  String path;
+ final  List<String> _field;
+@override List<String> get field {
+  if (_field is EqualUnmodifiableListView) return _field;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_field);
+}
+
 
 /// Create a copy of PathResult
 /// with the given fields replaced by the non-null parameter values.
@@ -237,18 +245,18 @@ _$PathResultCopyWith<_PathResult> get copyWith => __$PathResultCopyWithImpl<_Pat
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PathResult&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.steps, _steps)&&(identical(other.path, path) || other.path == path));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PathResult&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.steps, _steps)&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other.field, _field));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_steps),path);
+    return Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_steps),path,const DeepCollectionEquality().hash(_field));
 }
 
 @override
 String toString() {
-    return 'PathResult(id: $id, steps: $steps, path: $path)';
+    return 'PathResult(id: $id, steps: $steps, path: $path, field: $field)';
 }
 
 
@@ -259,7 +267,7 @@ abstract mixin class _$PathResultCopyWith<$Res> implements $PathResultCopyWith<$
   factory _$PathResultCopyWith(_PathResult value, $Res Function(_PathResult) _then) = __$PathResultCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<GridPoint> steps, String path
+ String id, List<GridPoint> steps, String path, List<String> field
 });
 
 
@@ -276,12 +284,13 @@ class __$PathResultCopyWithImpl<$Res>
 
 /// Create a copy of PathResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? steps = null,Object? path = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? steps = null,Object? path = null,Object? field = null,}) {
   return _then(_PathResult(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,steps: null == steps ? _self._steps : steps // ignore: cast_nullable_to_non_nullable
 as List<GridPoint>,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
-as String,
+as String,field: null == field ? _self._field : field // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

@@ -113,7 +113,7 @@ class ApiUrlValidator {
       }
       return (scheme: prefix, rest: rest.substring(2));
     }
-    // A dotted host or localhost followed by :port is not a scheme.
+    // a dotted host or localhost followed by :port is not a scheme.
     if (!rest.startsWith('//') &&
         (prefix.contains('.') || prefix == 'localhost')) {
       return (scheme: null, rest: value);
@@ -159,7 +159,7 @@ class ApiUrlValidator {
       throw const FormatException('URL must contain a host');
     }
     final asciiHost = unicodeToAscii(host).toLowerCase();
-    // The package returns the original input when conversion fails.
+    // package returns original input on failure.
     if (asciiHost.codeUnits.any((unit) => unit > 127)) {
       throw const FormatException(
         'The domain contains invalid or unsupported characters',

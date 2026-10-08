@@ -27,3 +27,7 @@ class NotFoundFailure extends Failure {
 class UnknownFailure extends Failure {
   const UnknownFailure() : super(message: 'An unknown error occurred.');
 }
+
+class CalculationFailure extends Failure {
+  const CalculationFailure(String message) : super(message: message);
+}

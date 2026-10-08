@@ -106,6 +106,7 @@ void main() {
         id: 'task-1',
         steps: [GridPoint(x: 0, y: 0), GridPoint(x: 0, y: 1)],
         path: '0,0->0,1',
+        field: ['.', '.'],
       ),
     ];
 

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ProcessLoadingView extends StatelessWidget {
-  const ProcessLoadingView({super.key});
+  const ProcessLoadingView({
+    super.key,
+    required this.message,
+  });
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         Text(
-          'All calculations has finished, you can send\nyour results to server',
+          message,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 24),
-        Center(
+        const SizedBox(height: 24),
+        const Center(
           child: CircularProgressIndicator(),
         ),
       ],

@@ -9,5 +9,6 @@ abstract class PathResult with _$PathResult {
     required String id,
     required List<GridPoint> steps,
     required String path,
+    required List<String> field,
   }) = _PathResult;
 }
