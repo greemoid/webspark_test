@@ -1,0 +1,7 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:webspark_test/core/cubits/base/failure.dart';
+
+abstract interface class ApiUrlRepository {
+  Future<Either<Failure, String?>> getSavedUrl();
+  Future<Either<Failure, Unit>> saveUrl(String url);
+}
