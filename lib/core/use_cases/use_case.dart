@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 
 abstract interface class UseCase<Result, Params> {
   Future<Either<Failure, Result>> call(Params params);

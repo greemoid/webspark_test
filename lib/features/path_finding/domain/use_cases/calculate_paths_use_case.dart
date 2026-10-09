@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/core/use_cases/use_case.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_result.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_task.dart';
@@ -26,49 +26,49 @@ class CalculatePathsUseCase
   Future<Either<Failure, List<PathResult>>> call(
     CalculatePathsParams params,
   ) async {
-    try {
-      final results = <PathResult>[];
-      final total = params.tasks.length;
+    final results = <PathResult>[];
+    final total = params.tasks.length;
 
-      for (var i = 0; i < total; i++) {
-        final task = params.tasks[i];
+    for (var i = 0; i < total; i++) {
+      final task = params.tasks[i];
 
-        final grid = Grid(task.field);
+      final grid = Grid(task.field);
 
-        final searchResult = _solver.solve(
-          grid: grid,
-          start: task.start,
-          end: task.end,
-        );
-
-        String pathString = '';
-        if (searchResult is FoundPath) {
-          pathString = searchResult.steps
-              .map((e) => '(${e.x},${e.y})')
-              .join('->');
-          results.add(
-            PathResult(
-              id: task.id,
-              steps: searchResult.steps.toList(),
-              path: pathString,
-              field: task.field,
-            ),
-          );
-        } else if (searchResult is UnreachablePath) {
-          results.add(
-            PathResult(id: task.id, steps: [], path: '', field: task.field),
-          );
-        }
-
-        params.onProgress?.call(i + 1, total);
-
-        // yield control to the event loop so UI can update progress
-        await Future.delayed(Duration.zero);
+      if (!grid.isWalkable(task.start) || !grid.isWalkable(task.end)) {
+        return Left(CalculationFailure('Invalid start or end cell'));
       }
 
-      return Right(results);
-    } catch (e) {
-      return Left(CalculationFailure('Failed to calculate paths: $e'));
+      final searchResult = _solver.solve(
+        grid: grid,
+        start: task.start,
+        end: task.end,
+      );
+
+      String pathString = '';
+      if (searchResult is FoundPath) {
+        pathString = searchResult.steps
+            .map((e) => '(${e.x},${e.y})')
+            .join('->');
+        results.add(
+          PathResult(
+            id: task.id,
+            steps: searchResult.steps.toList(),
+            path: pathString,
+            field: task.field,
+          ),
+        );
+      } else if (searchResult is UnreachablePath) {
+        results.add(
+          PathResult(id: task.id, steps: [], path: '', field: task.field),
+        );
+      }
+
+      params.onProgress?.call(i + 1, total);
+
+      // yield control to the event loop so UI can update progress
+      await Future.delayed(Duration.zero);
     }
+
+    return Right(results);
   }
 }

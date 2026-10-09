@@ -1,7 +1,7 @@
 import 'package:commons_validator/commons_validator.dart' show unicodeToAscii;
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 
 class InvalidUrlFailure extends Failure {
   const InvalidUrlFailure(String message) : super(message: message);
@@ -27,6 +27,7 @@ class ApiUrlValidator {
     if (value.isEmpty) {
       return left(const InvalidUrlFailure('URL cannot be empty'));
     }
+
     try {
       return right(_normalize(value));
     } on FormatException catch (error) {
@@ -70,7 +71,9 @@ class ApiUrlValidator {
     }
 
     final address = _parseAuthority(authority);
-    final host = address.ipv6 ? address.host.toLowerCase() : _normalizeDomain(address.host);
+    final host = address.ipv6
+        ? address.host.toLowerCase()
+        : _normalizeDomain(address.host);
     _validateHost(
       host,
       ipv6: address.ipv6,

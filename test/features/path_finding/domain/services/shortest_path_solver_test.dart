@@ -192,19 +192,57 @@ void main() {
           );
         }
         expect(
-          movement.canMove(grid, const GridPoint(x: 2, y: 0), const GridPoint(x: 1, y: 0)),
+          movement.canMove(
+            grid,
+            const GridPoint(x: 2, y: 0),
+            const GridPoint(x: 1, y: 0),
+          ),
           isFalse,
         );
       }
     });
+    test('A: One side wall allows diagonal movement', () {
+      for (final isReversed in [false, true]) {
+        final start = isReversed
+            ? const GridPoint(x: 1, y: 1)
+            : const GridPoint(x: 0, y: 0);
+        final end = isReversed
+            ? const GridPoint(x: 0, y: 0)
+            : const GridPoint(x: 1, y: 1);
+        final result = solve(['.X', '..'], start, end) as FoundPath;
+        expect(result.moveCount, 1);
+      }
+    });
+    test('B: One side wall on the other side allows diagonal movement', () {
+      for (final isReversed in [false, true]) {
+        final start = isReversed
+            ? const GridPoint(x: 1, y: 1)
+            : const GridPoint(x: 0, y: 0);
+        final end = isReversed
+            ? const GridPoint(x: 0, y: 0)
+            : const GridPoint(x: 1, y: 1);
+        final result = solve(['..', 'X.'], start, end) as FoundPath;
+        expect(result.moveCount, 1);
+      }
+    });
+    test('C: Two side walls prevent diagonal movement (squeezing)', () {
+      for (final isReversed in [false, true]) {
+        final start = isReversed
+            ? const GridPoint(x: 1, y: 1)
+            : const GridPoint(x: 0, y: 0);
+        final end = isReversed
+            ? const GridPoint(x: 0, y: 0)
+            : const GridPoint(x: 1, y: 1);
+        final result = solve(['.X', 'X.'], start, end);
+        expect(result, isA<UnreachablePath>());
+      }
+    });
     test('PDF example allows one blocked side', () {
-      final result =
-          solve(
-                ['.X.', '.X.', '...'],
-                const GridPoint(x: 1, y: 2),
-                const GridPoint(x: 2, y: 0),
-              )
-              as FoundPath;
+      final result = solve(
+        ['.X.', '.X.', '...'],
+        const GridPoint(x: 1, y: 2),
+        const GridPoint(x: 2, y: 0),
+      ) as FoundPath;
       expect(result.steps, [
         const GridPoint(x: 1, y: 2),
         const GridPoint(x: 2, y: 1),
@@ -212,13 +250,11 @@ void main() {
       ]);
     });
     test('first actual API task: two moves with one open side', () {
-      final result =
-          solve(
-                ['.X.', '.X.', '...'],
-                const GridPoint(x: 2, y: 1),
-                const GridPoint(x: 0, y: 2),
-              )
-              as FoundPath;
+      final result = solve(
+        ['.X.', '.X.', '...'],
+        const GridPoint(x: 2, y: 1),
+        const GridPoint(x: 0, y: 2),
+      ) as FoundPath;
       expect(result.steps, [
         const GridPoint(x: 2, y: 1),
         const GridPoint(x: 1, y: 2),
@@ -226,14 +262,12 @@ void main() {
       ]);
     });
     test('first API task needs three moves under strict corner rule', () {
-      final result =
-          solve(
-                ['.X.', '.X.', '...'],
-                const GridPoint(x: 2, y: 1),
-                const GridPoint(x: 0, y: 2),
-                DiagonalRule.bothSidesOpen,
-              )
-              as FoundPath;
+      final result = solve(
+        ['.X.', '.X.', '...'],
+        const GridPoint(x: 2, y: 1),
+        const GridPoint(x: 0, y: 2),
+        DiagonalRule.bothSidesOpen,
+      ) as FoundPath;
       expect(result.moveCount, 3);
     });
     test('second API task: two walls trap start under no-squeezing rule', () {
@@ -253,14 +287,12 @@ void main() {
       }
     });
     test('second API task has three moves with destination-only rule', () {
-      final result =
-          solve(
-                ['XXX.', 'X..X', 'X..X', '.XXX'],
-                const GridPoint(x: 0, y: 3),
-                const GridPoint(x: 3, y: 0),
-                DiagonalRule.destinationOnly,
-              )
-              as FoundPath;
+      final result = solve(
+        ['XXX.', 'X..X', 'X..X', '.XXX'],
+        const GridPoint(x: 0, y: 3),
+        const GridPoint(x: 3, y: 0),
+        DiagonalRule.destinationOnly,
+      ) as FoundPath;
       expect(result.steps, [
         const GridPoint(x: 0, y: 3),
         const GridPoint(x: 1, y: 2),
@@ -270,14 +302,12 @@ void main() {
     });
     test('start equals end: one point, zero moves', () {
       for (final rule in DiagonalRule.values) {
-        final path =
-            solve(
-                  ['..', '..'],
-                  const GridPoint(x: 1, y: 1),
-                  const GridPoint(x: 1, y: 1),
-                  rule,
-                )
-                as FoundPath;
+        final path = solve(
+          ['..', '..'],
+          const GridPoint(x: 1, y: 1),
+          const GridPoint(x: 1, y: 1),
+          rule,
+        ) as FoundPath;
         expect(path.steps, [const GridPoint(x: 1, y: 1)]);
         expect(path.moveCount, 0);
       }
@@ -301,7 +331,10 @@ void main() {
         final movement = MovementPolicy(diagonalRule: rule);
         expect(movement.neighbors(grid, const GridPoint(x: 1, y: 1)).length, 8);
         for (final p in movement.neighbors(grid, const GridPoint(x: 1, y: 1))) {
-          expect(movement.canMove(grid, p, const GridPoint(x: 1, y: 1)), isTrue);
+          expect(
+            movement.canMove(grid, p, const GridPoint(x: 1, y: 1)),
+            isTrue,
+          );
         }
       }
     });
@@ -317,13 +350,11 @@ void main() {
           ),
           isA<UnreachablePath>(),
         );
-        final path =
-            instance.solve(
-                  grid: grid,
-                  start: const GridPoint(x: 2, y: 0),
-                  end: const GridPoint(x: 0, y: 0),
-                )
-                as FoundPath;
+        final path = instance.solve(
+          grid: grid,
+          start: const GridPoint(x: 2, y: 0),
+          end: const GridPoint(x: 0, y: 0),
+        ) as FoundPath;
         expect(path.steps, [
           const GridPoint(x: 2, y: 0),
           const GridPoint(x: 1, y: 0),

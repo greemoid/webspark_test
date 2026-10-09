@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/core/use_cases/use_case.dart';
 import 'package:webspark_test/features/path_finding/domain/use_cases/get_saved_api_url_use_case.dart';
 import 'package:webspark_test/features/path_finding/domain/use_cases/save_api_url_use_case.dart';
@@ -11,7 +11,9 @@ import 'package:webspark_test/features/path_finding/presentation/state/url_input
 import 'package:webspark_test/features/path_finding/presentation/validators/api_url_validator.dart';
 
 class MockGetSavedApiUrlUseCase extends Mock implements GetSavedApiUrlUseCase {}
+
 class MockSaveApiUrlUseCase extends Mock implements SaveApiUrlUseCase {}
+
 class MockApiUrlValidator extends Mock implements ApiUrlValidator {}
 
 class TestFailure extends Failure {
@@ -42,28 +44,34 @@ void main() {
   }
 
   group('UrlInputCubit init', () {
-    test('should emit initial state with empty url if getSavedApiUrl fails', () async {
-      when(() => mockGetSavedApiUrlUseCase(any()))
-          .thenAnswer((_) async => const Left(TestFailure('Error')));
-      
-      final cubit = buildCubit();
-      
-      expect(cubit.state, const UrlInputState.initial(url: ''));
-      verify(() => mockGetSavedApiUrlUseCase(any())).called(1);
-    });
+    test(
+      'should emit initial state with empty url if getSavedApiUrl fails',
+      () async {
+        when(() => mockGetSavedApiUrlUseCase(any()))
+            .thenAnswer((_) async => const Left(TestFailure('Error')));
 
-    test('should emit initial state with url if getSavedApiUrl succeeds', () async {
-      const savedUrl = 'https://example.com/api';
-      when(() => mockGetSavedApiUrlUseCase(any()))
-          .thenAnswer((_) async => const Right(savedUrl));
-      
-      final cubit = buildCubit();
-      
-      // We need to wait for the microtask to finish since _init is async
-      await Future.delayed(Duration.zero);
-      
-      expect(cubit.state, const UrlInputState.initial(url: savedUrl));
-    });
+        final cubit = buildCubit();
+
+        expect(cubit.state, const UrlInputState.initial(url: ''));
+        verify(() => mockGetSavedApiUrlUseCase(any())).called(1);
+      },
+    );
+
+    test(
+      'should emit initial state with url if getSavedApiUrl succeeds',
+      () async {
+        const savedUrl = 'https://example.com/api';
+        when(() => mockGetSavedApiUrlUseCase(any()))
+            .thenAnswer((_) async => const Right(savedUrl));
+
+        final cubit = buildCubit();
+
+        // We need to wait for the microtask to finish since _init is async
+        await Future.delayed(Duration.zero);
+
+        expect(cubit.state, const UrlInputState.initial(url: savedUrl));
+      },
+    );
   });
 
   group('UrlInputCubit actions', () {
@@ -78,9 +86,7 @@ void main() {
         return buildCubit();
       },
       act: (cubit) => cubit.onUrlChanged('new-url'),
-      expect: () => [
-        const UrlInputState.initial(url: 'new-url'),
-      ],
+      expect: () => [const UrlInputState.initial(url: 'new-url')],
     );
 
     blocTest<UrlInputCubit, UrlInputState>(

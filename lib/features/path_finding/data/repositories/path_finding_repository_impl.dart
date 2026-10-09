@@ -1,9 +1,10 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/core/di/locator.dart';
 import 'package:webspark_test/core/utils/either_guard_mixin.dart';
 import 'package:webspark_test/features/path_finding/data/api/path_finding_api.dart';
+
 import 'package:webspark_test/features/path_finding/data/mappers/path_finding_mappers.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_result.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_task.dart';

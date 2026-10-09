@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 
 class FailureMapper {
   static Failure from(Object error) {

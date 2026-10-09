@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/core/di/locator.dart';
 import 'package:webspark_test/features/path_finding/data/api/path_finding_api.dart';
 import 'package:webspark_test/features/path_finding/data/models/base_response_dto.dart';

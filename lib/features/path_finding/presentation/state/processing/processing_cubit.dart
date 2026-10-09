@@ -46,10 +46,12 @@ class ProcessingCubit extends Cubit<ProcessingState> {
             tasks: tasks,
             onProgress: (completed, total) {
               if (!isClosed) {
-                emit(ProcessingState.calculating(
-                  completed: completed,
-                  total: total,
-                ));
+                emit(
+                  ProcessingState.calculating(
+                    completed: completed,
+                    total: total,
+                  ),
+                );
               }
             },
           ),
@@ -81,18 +83,22 @@ class ProcessingCubit extends Cubit<ProcessingState> {
     if (isClosed) return;
 
     submitResult.fold(
-      (failure) => emit(ProcessingState.ready(
-        results: results,
-        submissionError: failure.message,
-      )),
+      (failure) => emit(
+        ProcessingState.ready(
+          results: results,
+          submissionError: failure.message,
+        ),
+      ),
       (success) {
         if (success) {
           emit(ProcessingState.success(results: results));
         } else {
-          emit(ProcessingState.ready(
-            results: results,
-            submissionError: 'Server rejected the results.',
-          ));
+          emit(
+            ProcessingState.ready(
+              results: results,
+              submissionError: 'Server rejected the results.',
+            ),
+          );
         }
       },
     );

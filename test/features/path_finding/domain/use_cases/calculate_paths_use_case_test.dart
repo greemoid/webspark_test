@@ -31,9 +31,9 @@ void main() {
           ),
           const PathTask(
             id: 'task2',
-            field: ['..', '..'],
-            start: GridPoint(x: 0, y: 0),
-            end: GridPoint(x: 1, y: 1),
+            field: ['XXX.', 'X..X', 'X..X', '.XXX'],
+            start: GridPoint(x: 0, y: 3),
+            end: GridPoint(x: 3, y: 0),
           ),
         ];
 
@@ -58,8 +58,8 @@ void main() {
         expect(results[0].field, ['.X.', '.X.', '...']);
 
         expect(results[1].id, 'task2');
-        expect(results[1].path, '(0,0)->(1,1)');
-        expect(results[1].field, ['..', '..']);
+        expect(results[1].path, '(0,3)->(1,2)->(2,1)->(3,0)');
+        expect(results[1].field, ['XXX.', 'X..X', 'X..X', '.XXX']);
 
         expect(progresses, [(1, 2), (2, 2)]);
       },

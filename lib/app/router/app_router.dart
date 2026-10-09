@@ -22,7 +22,9 @@ abstract final class AppRouter {
           builder: (context, state) {
             final apiUrl = state.extra as String?;
             if (apiUrl == null || apiUrl.isEmpty) {
-              return const Scaffold(body: Center(child: Text('Error: No URL provided')));
+              return const Scaffold(
+                body: Center(child: Text('Error: No URL provided')),
+              );
             }
             return ProcessScreen(apiUrl: apiUrl);
           },
@@ -39,7 +41,9 @@ abstract final class AppRouter {
           builder: (context, state) {
             final result = state.extra as PathResult?;
             if (result == null) {
-              return const Scaffold(body: Center(child: Text('Error: No result provided')));
+              return const Scaffold(
+                body: Center(child: Text('Error: No result provided')),
+              );
             }
             return PreviewScreen(result: result);
           },

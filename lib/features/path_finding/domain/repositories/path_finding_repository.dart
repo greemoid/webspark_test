@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_result.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_task.dart';
 

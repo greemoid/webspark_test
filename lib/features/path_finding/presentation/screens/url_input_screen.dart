@@ -6,6 +6,7 @@ import 'package:webspark_test/features/path_finding/presentation/state/url_input
 import 'package:webspark_test/features/path_finding/presentation/state/url_input/url_input_state.dart';
 
 import 'package:webspark_test/core/di/locator.dart';
+import 'package:webspark_test/core/ui/widgets/primary_button.dart';
 
 class UrlInputScreen extends StatelessWidget {
   const UrlInputScreen({super.key});
@@ -87,7 +88,10 @@ class _UrlInputViewState extends State<_UrlInputView> {
                         padding: const EdgeInsets.only(top: 0.0),
                         child: Transform.translate(
                           offset: const Offset(0, -4),
-                          child: const Icon(Icons.compare_arrows, color: Colors.grey),
+                          child: const Icon(
+                            Icons.compare_arrows,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -121,36 +125,13 @@ class _UrlInputViewState extends State<_UrlInputView> {
                     ],
                   ),
                   const Spacer(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlue,
-                        foregroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: isLoading
-                          ? null
-                          : () {
-                              context.read<UrlInputCubit>().submit();
-                            },
-                      child: isLoading
-                          ? const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
-                                color: Colors.black,
-                                strokeWidth: 2,
-                              ),
-                            )
-                          : const Text(
-                              'Start counting process',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                    ),
+
+                  PrimaryButton(
+                    text: 'Start counting process',
+                    isLoading: isLoading,
+                    onPressed: () {
+                      context.read<UrlInputCubit>().submit();
+                    },
                   ),
                   const SizedBox(height: 16),
                 ],

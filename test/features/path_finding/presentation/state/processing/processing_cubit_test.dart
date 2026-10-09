@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/grid_point.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_result.dart';
 import 'package:webspark_test/features/path_finding/domain/entities/path_task.dart';

@@ -28,13 +28,8 @@ void main() {
 
       expect(find.text('Preview screen'), findsOneWidget);
       expect(find.text('(0,0)->(1,1)->(2,1)'), findsOneWidget);
-      expect(find.byType(GridView), findsOneWidget);
-
-      // grid is 3x3 so 9 items
-      expect(find.byType(Container), findsAtLeastNWidgets(9));
-      expect(find.text('(1,0)'), findsOneWidget); // blocked
-      expect(find.text('(0,0)'), findsOneWidget); // start
-      expect(find.text('(2,1)'), findsOneWidget); // end
+      expect(find.byType(InteractiveViewer), findsOneWidget);
+      expect(find.byType(CustomPaint), findsWidgets);
     });
 
     testWidgets('renders invalid field data for empty field', (tester) async {

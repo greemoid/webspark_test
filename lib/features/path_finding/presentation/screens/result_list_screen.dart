@@ -17,7 +17,16 @@ class ResultListScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final result = results[index];
           return ListTile(
-            title: Text(result.path, textAlign: TextAlign.center),
+            title: Text(
+              result.path.isEmpty ? 'No path found' : result.path,
+              textAlign: TextAlign.center,
+              style: result.path.isEmpty
+                  ? const TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey,
+                    )
+                  : null,
+            ),
             onTap: () {
               context.push('/preview', extra: result);
             },

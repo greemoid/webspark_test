@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/core/use_cases/use_case.dart';
 import 'package:webspark_test/features/path_finding/domain/repositories/api_url_repository.dart';
 

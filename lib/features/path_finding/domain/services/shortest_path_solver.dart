@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:webspark_test/features/path_finding/domain/entities/grid_point.dart';
+
 import 'grid.dart';
 import 'movement_policy.dart';
 import 'path_search_result.dart';

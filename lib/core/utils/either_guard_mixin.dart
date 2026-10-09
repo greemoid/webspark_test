@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:webspark_test/core/cubits/base/failure_mapper.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure_mapper.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 
 mixin EitherGuardMixin {
   Future<Either<Failure, T>> guard<T>(Future<T> Function() computation) async {

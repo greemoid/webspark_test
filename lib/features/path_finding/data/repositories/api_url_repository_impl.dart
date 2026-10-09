@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:webspark_test/core/cubits/base/failure.dart';
+import 'package:webspark_test/core/failure/failure.dart';
 import 'package:webspark_test/core/utils/either_guard_mixin.dart';
 import 'package:webspark_test/features/path_finding/data/datasources/api_url_local_data_source.dart';
 import 'package:webspark_test/features/path_finding/domain/repositories/api_url_repository.dart';
